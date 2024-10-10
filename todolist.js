@@ -1,45 +1,87 @@
 class TodoList {
     constructor() {
-        this.tasks = [];
+        this.lists = [];
+        this.currentListIndex = 0;
+    } 
+    addList(listName) {
+        const newList = {
+            name: listName,
+            tasks: []
+        };
+        this.lists.push(newList);
+        this.saveListsToLocalStorage();
+        this.renderListSelector();
+    }
+    setCurrentList(index) {
+        this.currentListIndex = index;
+        this.renderTasks();
     }
 
     addTask(taskText) {
         const task = {
             text: taskText,
         };
-        this.tasks.push(task);
-        this.saveTasksToLocalStorage();
+        this.lists[this.currentListIndex].tasks.push(task);
+        this.saveListsToLocalStorage();
         this.renderTasks();
     }
 
     editTask(index,newText){
        
-        this.tasks[index].text=newText;
-        this.saveTasksToLocalStorage();
+        this.lists[this.currentListIndex][index].text=newText;
+        this.saveListsToLocalStorage();
         this.renderTasks();
         
     }
 
     deleteTask(index){
-        this.tasks.splice(index,1);
-        this.saveTasksToLocalStorage();
+        this.lists[this.currentListIndex].tasks.splice(index,1);
+        this.saveListsToLocalStorage();
+        this.renderTasks();
+    }
+    editList(index, newName) {
+        if (newName.trim() !== "") {
+            this.lists[index].name = newName;
+            this.saveListsToLocalStorage();
+            this.renderListSelector();
+        }
+    }
+
+    deleteList(index) {
+        this.lists.splice(index, 1);
+        this.currentListIndex = 0; // Reset to the first list
+        this.saveListsToLocalStorage();
+        this.renderListSelector();
         this.renderTasks();
     }
 
-    saveTasksToLocalStorage() {
-        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    saveListsToLocalStorage() {
+        localStorage.setItem("lists", JSON.stringify(this.lists));
     }
-    loadTasksFromLocalStorage() {
-        const storedTasks = localStorage.getItem("tasks");
-        this.tasks = JSON.parse(storedTasks) || [];
+    loadListsFromLocalStorage() {
+        const storedLists = JSON.parse(localStorage.getItem("lists"));
+        if (storedLists) {
+            this.lists = storedLists;
+        }
+        this.renderListSelector();
         this.renderTasks();
     }
-
+    renderListSelector() {
+        const listSelector = document.getElementById("listSelector");
+        listSelector.innerHTML = ""; 
+        this.lists.forEach((list, index) => {
+            const option = document.createElement("option");
+            option.value = index;
+            option.text = list.name;
+            listSelector.appendChild(option);
+        });
+        listSelector.value = this.currentListIndex;
+    }
     renderTasks() {
         const taskList = document.getElementById("taskList");
         taskList.innerHTML = "";
 
-        this.tasks.forEach((task, index) => {
+        this.lists[this.currentListIndex].tasks.forEach((task, index) => {
             const listItem = document.createElement("li");
             listItem.innerHTML = `
                     <span>${task.text}</span>

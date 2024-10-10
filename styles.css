@@ -18,9 +18,11 @@ h1 {
     text-align: center;
     color: #555;
 }
+#listContainer, #inputContainer {
+    margin-bottom: 10px;
+}
 
 input [type="text"] {
-
     width: 80%;
     padding: 10px;
     font-size: 16px;
@@ -29,6 +31,21 @@ input [type="text"] {
     box-sizing: border-box;
     margin-bottom: 10px;
 
+}
+#inputContainer {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 10px;
+    z-index: 1000;
+    border-bottom: 1px solid #ccc;
+}
+#listInput, #taskInput {
+    width: 60%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 button{
     background-color: #007bff;
@@ -55,6 +72,7 @@ button.edit-button:hover{
     background-color: #0056b3;
 }
 ul{
+   
     list-style-type: none;
     padding: 0;
 }

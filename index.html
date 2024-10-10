@@ -10,11 +10,23 @@
 <body>
     <div class="container">
         <h1> To Do List App </h1>
-        <input type="text" id="taskInput" placeholder="Enter a new task" />
-        <button id="addButton">Add</button>
-        <ul id="taskList"></ul>
-    </div>
 
+        <div id="listContainer">
+            <input type="text" id="listInput" placeholder="Nombre de nueva lista" />
+            <button id="addListButton">Agregar nueva lista</button>
+        </div>
+        <div id="inputContainer">
+            <label for="listSelector">Selecciona una lista:</label>
+            <select id="listSelector"></select>
+            <input type="text" id="taskInput" placeholder="Ingresa una nueva tarea" />
+            <button id="addButton">Agregar</button>
+        </div>
+        <div id="listActions">
+            <button id="editListButton">Editar lista</button>
+            <button id="deleteListButton">Eliminar lista</button>
+        </div>
+            <ul id="taskList"></ul>
+    </div>
     <script type="text/javascript" src="todolist.js"></script>
     <script type="text/javascript" src="script.js"></script>
 
