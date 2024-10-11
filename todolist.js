@@ -1,96 +1,102 @@
-class TodoList {
+class ListaDeTareas {
     constructor() {
-        this.lists = [];
-        this.currentListIndex = 0;
-    } 
-    addList(listName) {
-        const newList = {
-            name: listName,
-            tasks: []
+        this.listas = [];
+        this.indiceListaActual = 0;
+    }
+
+    agregarLista(nombreLista) {
+        const nuevaLista = {
+            nombre: nombreLista,
+            tareas: []
         };
-        this.lists.push(newList);
-        this.saveListsToLocalStorage();
-        this.renderListSelector();
-    }
-    setCurrentList(index) {
-        this.currentListIndex = index;
-        this.renderTasks();
+        this.listas.push(nuevaLista);
+        this.guardarListasEnLocalStorage();
+        this.renderizarSelectorDeListas();
     }
 
-    addTask(taskText) {
-        const task = {
-            text: taskText,
+    establecerListaActual(indice) {
+        this.indiceListaActual = indice;
+        this.renderizarTareas();
+    }
+
+    agregarTarea(textoTarea) {
+        const tarea = {
+            texto: textoTarea,
         };
-        this.lists[this.currentListIndex].tasks.push(task);
-        this.saveListsToLocalStorage();
-        this.renderTasks();
+        this.listas[this.indiceListaActual].tareas.push(tarea);
+        this.guardarListasEnLocalStorage();
+        this.renderizarTareas();
     }
 
-    editTask(index,newText){
-       
-        this.lists[this.currentListIndex][index].text=newText;
-        this.saveListsToLocalStorage();
-        this.renderTasks();
-        
+    editarTarea(indice, nuevoTexto) {
+        this.listas[this.indiceListaActual].tareas[indice].texto = nuevoTexto;
+        this.guardarListasEnLocalStorage();
+        this.renderizarTareas();
     }
 
-    deleteTask(index){
-        this.lists[this.currentListIndex].tasks.splice(index,1);
-        this.saveListsToLocalStorage();
-        this.renderTasks();
+    eliminarTarea(indice) {
+        this.listas[this.indiceListaActual].tareas.splice(indice, 1);
+        this.guardarListasEnLocalStorage();
+        this.renderizarTareas();
     }
-    editList(index, newName) {
-        if (newName.trim() !== "") {
-            this.lists[index].name = newName;
-            this.saveListsToLocalStorage();
-            this.renderListSelector();
+
+    editarLista(indice, nuevoNombre) {
+        if (nuevoNombre.trim() !== "") {
+            this.listas[indice].nombre = nuevoNombre;
+            this.guardarListasEnLocalStorage();
+            this.renderizarSelectorDeListas();
         }
     }
 
-    deleteList(index) {
-        this.lists.splice(index, 1);
-        this.currentListIndex = 0; // Reset to the first list
-        this.saveListsToLocalStorage();
-        this.renderListSelector();
-        this.renderTasks();
+    eliminarLista(indice) {
+        this.listas.splice(indice, 1);
+        this.indiceListaActual = 0; // Restablecer a la primera lista
+        this.guardarListasEnLocalStorage();
+        this.renderizarSelectorDeListas();
+        this.renderizarTareas();
     }
 
-    saveListsToLocalStorage() {
-        localStorage.setItem("lists", JSON.stringify(this.lists));
+    guardarListasEnLocalStorage() {
+        localStorage.setItem("listas", JSON.stringify(this.listas));
     }
-    loadListsFromLocalStorage() {
-        const storedLists = JSON.parse(localStorage.getItem("lists"));
-        if (storedLists) {
-            this.lists = storedLists;
+
+    cargarListasDesdeLocalStorage() {
+        const listasAlmacenadas = JSON.parse(localStorage.getItem("listas"));
+        if (listasAlmacenadas) {
+            this.listas = listasAlmacenadas;
+        } else {
+            this.listas = []; 
         }
-        this.renderListSelector();
-        this.renderTasks();
+        this.renderizarSelectorDeListas();
+        this.renderizarTareas();
     }
-    renderListSelector() {
-        const listSelector = document.getElementById("listSelector");
-        listSelector.innerHTML = ""; 
-        this.lists.forEach((list, index) => {
-            const option = document.createElement("option");
-            option.value = index;
-            option.text = list.name;
-            listSelector.appendChild(option);
-        });
-        listSelector.value = this.currentListIndex;
-    }
-    renderTasks() {
-        const taskList = document.getElementById("taskList");
-        taskList.innerHTML = "";
 
-        this.lists[this.currentListIndex].tasks.forEach((task, index) => {
-            const listItem = document.createElement("li");
-            listItem.innerHTML = `
-                    <span>${task.text}</span>
-                    <span>
-                        <button class="edit-button" onClick="todoList.editTask(${index}, prompt('Edit task:', '${task.text}'))" >Edit</button>
-                        <button class="delete-button" onClick="todoList.deleteTask(${index})" >Delete</button>
-                    </span>
-                `;
-            taskList.appendChild(listItem);
+    renderizarSelectorDeListas() {
+        const selectorDeListas = document.getElementById("listSelector");
+        selectorDeListas.innerHTML = "";
+        this.listas.forEach((lista, indice) => {
+            const opcion = document.createElement("option");
+            opcion.value = indice;
+            opcion.text = lista.nombre;
+            selectorDeListas.appendChild(opcion);
         });
-    }  
-}    
+        selectorDeListas.value = this.indiceListaActual;
+    }
+
+    renderizarTareas() {
+        const listaDeTareas = document.getElementById("taskList");
+        listaDeTareas.innerHTML = "";
+
+        this.listas[this.indiceListaActual].tareas.forEach((tarea, indice) => {
+            const elementoLista = document.createElement("li");
+            elementoLista.innerHTML = `
+                <span>${tarea.texto}</span>
+                <span>
+                    <button class="boton-editar" onClick="todoList.editarTarea(${indice}, prompt('Editar tarea:', '${tarea.texto}'))">Editar</button>
+                    <button class="boton-eliminar" onClick="todoList.eliminarTarea(${indice})">Eliminar</button>
+                </span>
+            `;
+            listaDeTareas.appendChild(elementoLista);
+        });
+    }
+}

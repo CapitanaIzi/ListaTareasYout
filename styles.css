@@ -5,7 +5,7 @@ body {
     background-color: rgb(237, 237, 237);
 }
 
-.container {
+.contenedor {
     max-width: 400px;
     margin: 100px auto;
     padding: 20px;
@@ -18,11 +18,12 @@ h1 {
     text-align: center;
     color: #555;
 }
-#listContainer, #inputContainer {
+
+#contenedorDeListas, #contenedorDeEntrada {
     margin-bottom: 10px;
 }
 
-input [type="text"] {
+input[type="text"] {
     width: 80%;
     padding: 10px;
     font-size: 16px;
@@ -30,9 +31,9 @@ input [type="text"] {
     border-radius: 5px;
     box-sizing: border-box;
     margin-bottom: 10px;
-
 }
-#inputContainer {
+
+#contenedorDeEntrada {
     position: sticky;
     top: 0;
     background-color: white;
@@ -40,14 +41,16 @@ input [type="text"] {
     z-index: 1000;
     border-bottom: 1px solid #ccc;
 }
-#listInput, #taskInput {
+
+#entradaLista, #entradaTarea {
     width: 60%;
     padding: 10px;
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-button{
+
+button {
     background-color: #007bff;
     width: 60px;
     color: white;
@@ -57,32 +60,41 @@ button{
     border-radius: 5px;
     cursor: pointer;
 }
-button:hover{
+
+button:hover {
     background-color: #0056b3;
 }
-button.edit-button{
+
+button.boton-editar {
     background-color: #007bff;
 }
-button.edit-button:hover{
-    background-color: #0056b3;
-}button.delete-button{
-    background-color: #ff333f;
-    width: 70px;
-}button.delete-button:hover{
+
+button.boton-editar:hover {
     background-color: #0056b3;
 }
-ul{
-   
+
+button.boton-eliminar {
+    background-color: #ff333f;
+    width: 70px;
+}
+
+button.boton-eliminar:hover {
+    background-color: #0056b3;
+}
+
+ul {
     list-style-type: none;
     padding: 0;
 }
-li{
+
+li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 10px;
     border-bottom: 1px solid #ccc;
 }
-li:last-child{
+
+li:last-child {
     border-bottom: none;
 }

@@ -1,56 +1,61 @@
-const todoList = new TodoList();
+const listaDeTareas = new ListaDeTareas();
 
-function addTask() {
-    const taskInput = document.getElementById("taskInput");
-    const taskText = taskInput.value.trim();
-    if (taskText.length > 0) {
-        todoList.addTask(taskText);
-        taskInput.value = "";
-        todoList.renderTasks();
-    }
-}
-function addList() {
-    const listInput = document.getElementById("listInput");
-    const listName = listInput.value.trim();
-    if (listName.length > 0) {
-        todoList.addList(listName);
-        listInput.value = "";
+function agregarTarea() {
+    const entradaTarea = document.getElementById("entradaTarea");
+    const textoTarea = entradaTarea.value.trim();
+    if (textoTarea.length > 0) {
+        listaDeTareas.agregarTarea(textoTarea);
+        entradaTarea.value = "";
+        listaDeTareas.renderizarTareas();
     }
 }
 
-document.getElementById("addButton").addEventListener("click", addTask);
-document.getElementById("taskInput").addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        addTask();
+function agregarLista() {
+    const entradaLista = document.getElementById("entradaLista");
+    const nombreLista = entradaLista.value.trim();
+    if (nombreLista.length > 0) {
+        listaDeTareas.agregarLista(nombreLista);
+        entradaLista.value = "";
     }
-});
-document.getElementById("addListButton").addEventListener("click", addList);
-    document.getElementById("listInput").addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-       addList();
-    }
-
-});
+}
 document.addEventListener("DOMContentLoaded", () => {
-    todoList.loadListsFromLocalStorage();
+    listaDeTareas.cargarListasDesdeLocalStorage();
 });
+
+document.getElementById("addButton").addEventListener("click", agregarTarea);
+document.getElementById("entradaTarea").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        agregarTarea();
+    }
+});
+document.getElementById("addListButton").addEventListener("click", agregarLista);
+document.getElementById("entradaLista").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        agregarLista();
+    }
+});
+
+
+
 document.getElementById("editListButton").addEventListener("click", () => {
-    const listSelector = document.getElementById("listSelector");
-    const selectedIndex = listSelector.value;
-    const newName = prompt("Editar nombre de la lista:", todoList.lists[selectedIndex].name);
-    if (newName !== null) {
-        todoList.editList(selectedIndex, newName);
+    const selectorDeListas = document.getElementById("listSelector");
+    const indiceSeleccionado = selectorDeListas.value;
+    const nuevoNombre = prompt("Editar nombre de la lista:", listaDeTareas.listas[indiceSeleccionado].nombre);
+    if (nuevoNombre !== null) {
+        listaDeTareas.editarLista(indiceSeleccionado, nuevoNombre);
     }
 });
+
 document.getElementById("deleteListButton").addEventListener("click", () => {
-    const listSelector = document.getElementById("listSelector");
-    const selectedIndex = listSelector.value;
-    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar esta lista?");
-    if (confirmDelete) {
-        todoList.deleteList(selectedIndex);
+    const selectorDeListas = document.getElementById("listSelector");
+    const indiceSeleccionado = selectorDeListas.value;
+    const confirmarEliminar = confirm("¿Estás seguro de que deseas eliminar esta lista?");
+    if (confirmarEliminar) {
+        listaDeTareas.eliminarLista(indiceSeleccionado);
     }
 });
+
 document.getElementById("listSelector").addEventListener("change", (event) => {
-    const selectedIndex = event.target.value;
-    todoList.setCurrentList(selectedIndex);
+    const indiceSeleccionado = event.target.value;
+    listaDeTareas.establecerListaActual(indiceSeleccionado);
 });
