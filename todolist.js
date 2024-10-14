@@ -20,6 +20,7 @@ class TodoList {
     addTask(taskText) {
         const task = {
             text: taskText,
+            completed: false 
         };
         this.lists[this.currentListIndex].tasks.push(task);
         this.saveListsToLocalStorage();
@@ -28,7 +29,7 @@ class TodoList {
 
     editTask(index,newText){
        
-        this.lists[this.currentListIndex][index].text=newText;
+        this.lists[this.currentListIndex].tasks[index].text = newText;
         this.saveListsToLocalStorage();
         this.renderTasks();
         
@@ -79,18 +80,64 @@ class TodoList {
     }
     renderTasks() {
         const taskList = document.getElementById("taskList");
-        taskList.innerHTML = "";
-
+        taskList.innerHTML = ""; // Limpiar la lista de tareas antes de renderizar
+    
+        // Asegúrate de que haya listas y tareas
+        if (!this.lists[this.currentListIndex] || !this.lists[this.currentListIndex].tasks) {
+            return;
+        }
+    
         this.lists[this.currentListIndex].tasks.forEach((task, index) => {
             const listItem = document.createElement("li");
-            listItem.innerHTML = `
-                    <span>${task.text}</span>
-                    <span>
-                        <button class="edit-button" onClick="todoList.editTask(${index}, prompt('Edit task:', '${task.text}'))" >Edit</button>
-                        <button class="delete-button" onClick="todoList.deleteTask(${index})" >Delete</button>
-                    </span>
-                `;
+    
+            // Crear checkbox
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = task.completed || false; // Marcar como completada si corresponde
+            checkbox.addEventListener("change", () => {
+                task.completed = checkbox.checked; // Actualizar el estado de la tarea
+                listItem.classList.toggle("completed", task.completed); // Añadir o remover la clase 'completed'
+                this.saveListsToLocalStorage(); // Guardar el cambio en localStorage
+            });
+    
+            // Crear el texto de la tarea
+            const taskText = document.createElement("span");
+            taskText.textContent = task.text;
+    
+            // Añadir checkbox y texto a listItem
+            listItem.appendChild(checkbox);
+            listItem.appendChild(taskText);
+    
+            // Añadir botones de edición y eliminación
+            const editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.className = "edit-button";
+            editButton.onclick = () => {
+                const newText = prompt("Edit task:", task.text);
+                if (newText !== null) {
+                    this.editTask(index, newText); // Llama al método editTask
+                }
+            };
+    
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.className = "delete-button";
+            deleteButton.onclick = () => {
+                this.deleteTask(index); // Llama al método deleteTask
+            };
+    
+            // Añadir botones al listItem
+            listItem.appendChild(editButton);
+            listItem.appendChild(deleteButton);
+    
+            // Añadir el elemento de la tarea al contenedor de la lista
             taskList.appendChild(listItem);
+    
+            // Aplicar la clase "completed" si la tarea está marcada
+            if (task.completed) {
+                listItem.classList.add("completed");
+            }
         });
-    }  
+    }
+    
 }    

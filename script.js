@@ -7,6 +7,7 @@ function addTask() {
         todoList.addTask(taskText);
         taskInput.value = "";
         todoList.renderTasks();
+
     }
 }
 function addList() {
@@ -54,3 +55,5 @@ document.getElementById("listSelector").addEventListener("change", (event) => {
     const selectedIndex = event.target.value;
     todoList.setCurrentList(selectedIndex);
 });
+
+
