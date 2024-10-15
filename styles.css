@@ -98,3 +98,7 @@ li {
 li:last-child {
     border-bottom: none;
 }
+.completed {
+    text-decoration: line-through;
+    color: rgb(119, 121, 118);
+}
