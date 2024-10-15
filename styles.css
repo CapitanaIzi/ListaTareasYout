@@ -70,7 +70,7 @@ button.boton-editar {
 }
 
 button.boton-editar:hover {
-    background-color: #0056b3;
+    background-color: #16ddb2;
 }
 
 button.boton-eliminar {
@@ -79,7 +79,7 @@ button.boton-eliminar {
 }
 
 button.boton-eliminar:hover {
-    background-color: #0056b3;
+    background-color: #f74f01;
 }
 
 ul {

@@ -137,7 +137,7 @@ class ListaDeTareas {
     // Crear el texto de la tarea
     crearTextoTarea(tarea) {
         const textoTarea = document.createElement("span");
-        textoTarea.textContent = tarea.text;
+        textoTarea.textContent = tarea.texto;
         return textoTarea;
     }
     
@@ -145,7 +145,7 @@ class ListaDeTareas {
     crearBotonEditar(indice, tarea) {
         const botonEditar = document.createElement("button");
         botonEditar.textContent = "Editar";
-        botonEditar.className = "edit-button";
+        botonEditar.className = "boton-editar";
     
         botonEditar.onclick = () => {
             const nuevoTexto = prompt("Editar tarea:", tarea.text);
@@ -161,7 +161,7 @@ class ListaDeTareas {
     crearBotonEliminar(indice) {
         const botonEliminar = document.createElement("button");
         botonEliminar.textContent = "Eliminar";
-        botonEliminar.className = "delete-button";
+        botonEliminar.className = "boton-eliminar";
     
         botonEliminar.onclick = () => {
             this.eliminarTarea(indice); // Llamar al método eliminarTarea
