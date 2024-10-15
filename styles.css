@@ -51,7 +51,7 @@ input[type="text"] {
 }
 
 button {
-    background-color: #007bff;
+    background-color: #037a7e;
     width: 60px;
     color: white;
     border: none;
@@ -62,15 +62,15 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #13b4ac;
 }
 
 button.boton-editar {
-    background-color: #007bff;
+    background-color: #62a5ec;
 }
 
 button.boton-editar:hover {
-    background-color: #16ddb2;
+    background-color: #48ebf7;
 }
 
 button.boton-eliminar {

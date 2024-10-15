@@ -114,6 +114,7 @@ class ListaDeTareas {
         // Aplicar la clase "completed" si la tarea está marcada
         if (tarea.completed) {
             elementoLista.classList.add("completed");
+            botonEditar.disabled= true;
         }
     
         return elementoLista;
@@ -148,10 +149,13 @@ class ListaDeTareas {
         botonEditar.className = "boton-editar";
     
         botonEditar.onclick = () => {
-            const nuevoTexto = prompt("Editar tarea:", tarea.text);
+            if (!tarea.completed) {
+                const nuevoTexto = prompt("Editar tarea:", tarea.texto);
             if (nuevoTexto !== null) {
                 this.editarTarea(indice, nuevoTexto);
             }
+            }
+            
         };
     
         return botonEditar;
