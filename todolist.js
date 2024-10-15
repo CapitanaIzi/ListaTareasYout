@@ -88,56 +88,83 @@ class TodoList {
         }
     
         this.lists[this.currentListIndex].tasks.forEach((task, index) => {
-            const listItem = document.createElement("li");
-    
-            // Crear checkbox
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.checked = task.completed || false; // Marcar como completada si corresponde
-            checkbox.addEventListener("change", () => {
-                task.completed = checkbox.checked; // Actualizar el estado de la tarea
-                listItem.classList.toggle("completed", task.completed); // Añadir o remover la clase 'completed'
-                this.saveListsToLocalStorage(); // Guardar el cambio en localStorage
-            });
-    
-            // Crear el texto de la tarea
-            const taskText = document.createElement("span");
-            taskText.textContent = task.text;
-    
-            // Añadir checkbox y texto a listItem
-            listItem.appendChild(checkbox);
-            listItem.appendChild(taskText);
-    
-            // Añadir botones de edición y eliminación
-            const editButton = document.createElement("button");
-            editButton.textContent = "Edit";
-            editButton.className = "edit-button";
-            editButton.onclick = () => {
-                const newText = prompt("Edit task:", task.text);
-                if (newText !== null) {
-                    this.editTask(index, newText); // Llama al método editTask
-                }
-            };
-    
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.className = "delete-button";
-            deleteButton.onclick = () => {
-                this.deleteTask(index); // Llama al método deleteTask
-            };
-    
-            // Añadir botones al listItem
-            listItem.appendChild(editButton);
-            listItem.appendChild(deleteButton);
-    
-            // Añadir el elemento de la tarea al contenedor de la lista
+            const listItem = this.createTaskItem(task, index);
             taskList.appendChild(listItem);
-    
-            // Aplicar la clase "completed" si la tarea está marcada
-            if (task.completed) {
-                listItem.classList.add("completed");
-            }
         });
+    }
+    
+    // Crear un ítem de la tarea (listItem)
+    createTaskItem(task, index) {
+        const listItem = document.createElement("li");
+    
+        const checkbox = this.createCheckbox(task, listItem);
+        const taskText = this.createTaskText(task);
+        const editButton = this.createEditButton(index, task);
+        const deleteButton = this.createDeleteButton(index);
+    
+        // Añadir elementos al listItem
+        listItem.appendChild(checkbox);
+        listItem.appendChild(taskText);
+        listItem.appendChild(editButton);
+        listItem.appendChild(deleteButton);
+    
+        // Aplicar la clase "completed" si la tarea está marcada
+        if (task.completed) {
+            listItem.classList.add("completed");
+        }
+    
+        return listItem;
+    }
+    
+    // Crear el checkbox
+    createCheckbox(task, listItem) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed || false;
+    
+        checkbox.addEventListener("change", () => {
+            task.completed = checkbox.checked;
+            listItem.classList.toggle("completed", task.completed); // Toggle clase 'completed'
+            this.saveListsToLocalStorage(); // Guardar cambios en localStorage
+        });
+    
+        return checkbox;
+    }
+    
+    // Crear el texto de la tarea
+    createTaskText(task) {
+        const taskText = document.createElement("span");
+        taskText.textContent = task.text;
+        return taskText;
+    }
+    
+    // Crear el botón de edición
+    createEditButton(index, task) {
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.className = "edit-button";
+    
+        editButton.onclick = () => {
+            const newText = prompt("Edit task:", task.text);
+            if (newText !== null) {
+                this.editTask(index, newText);
+            }
+        };
+    
+        return editButton;
+    }
+    
+    // Crear el botón de eliminación
+    createDeleteButton(index) {
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.className = "delete-button";
+    
+        deleteButton.onclick = () => {
+            this.deleteTask(index); // Llamar método deleteTask
+        };
+    
+        return deleteButton;
     }
     
 }    
