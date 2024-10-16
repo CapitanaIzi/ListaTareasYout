@@ -1,124 +1,68 @@
-let numeroMeta = 0; // Para contar cuántas metas hay y calcular su posición
-// Función para editar la meta principal
-function editarMetaPrincipal() {
-    let metaPrincipal = document.getElementById('metaPrincipalTexto');
-    let nuevoTexto = prompt("Editar Meta Principal:", metaPrincipal.innerText);
-    if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
-        metaPrincipal.innerText = nuevoTexto;
-    }
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const btnInsertar = document.getElementById('btn-insertar');
+    const menuInsertar = document.getElementById('menu-insertar');
+    const btnEliminar = document.getElementById('btn-eliminar');
+    const mapaConceptual = document.getElementById('mapa-conceptual');
 
-// Función para editar una meta secundaria
-function editarMeta(boton) {
-    let meta = boton.parentElement.querySelector('span');
-    let nuevoTexto = prompt("Editar meta:", meta.innerText);
-    if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
-        meta.innerText = nuevoTexto;
-    }
-}
+    // Mostrar el menú desplegable al hacer clic en Insertar
+    btnInsertar.addEventListener('click', () => {
+        menuInsertar.style.display = menuInsertar.style.display === 'block' ? 'none' : 'block';
+    });
 
-// Función para agregar una nueva meta
-function agregarMeta() {
-    const nuevaMetaInput = document.getElementById('nuevaMetaInput');
-    const textoMeta = nuevaMetaInput.value.trim();
+    // Función para crear un nuevo cuadro en el mapa conceptual
+    const insertarCuadro = () => {
+        const cuadro = document.createElement('div');
+        cuadro.classList.add('cuadro');
+        cuadro.setAttribute('contenteditable', 'true'); // Permitir editar el texto directamente
+        cuadro.innerText = 'Escribe aquí';
 
-    if (textoMeta === "") {
-        alert("Por favor, ingresa el nombre de la meta.");
-        return;
-    }
+        // Posicionar el cuadro en el centro al crearlo
+        cuadro.style.top = '50%';
+        cuadro.style.left = '50%';
+        mapaConceptual.appendChild(cuadro);
 
-    // Crear el nuevo elemento meta
-    const nuevaMeta = document.createElement('div');
-    nuevaMeta.classList.add('meta');
-    nuevaMeta.draggable = true; // Hacer que la nueva meta sea arrastrable
-
-    const spanMeta = document.createElement('span');
-    spanMeta.innerText = textoMeta;
-
-    const botonEditar = document.createElement('button');
-    botonEditar.innerText = "Editar";
-    botonEditar.onclick = function () {
-        editarMeta(botonEditar);
+        habilitarArrastre(cuadro);
     };
 
-    // Añadir el texto y el botón al nuevo div de meta
-    nuevaMeta.appendChild(spanMeta);
-    nuevaMeta.appendChild(botonEditar);
+    // Crear cuadro al hacer clic en el botón del menú
+    document.getElementById('insertar-cuadro').addEventListener('click', insertarCuadro);
 
-    // Posicionar la nueva meta en la parte inferior de la pantalla
-    nuevaMeta.style.left = `${numeroMeta * 120}px`; // Espacio entre metas
-    nuevaMeta.style.bottom = '10px'; // A 10px del fondo
-
-    // Agregar la nueva meta al contenedor de sub-metas
-    document.getElementById('mapa-conceptual').appendChild(nuevaMeta);
-
-    // Habilitar la nueva meta para ser arrastrada
-    habilitarArrastrar(nuevaMeta);
-
-    // Incrementar el contador de metas
-    numeroMeta++;
-
-    // Limpiar el campo de entrada
-    nuevaMetaInput.value = "";
-}
-
-    // Habilitar arrastrar y soltar para las metas
-    function habilitarArrastrar(meta) {
+    // Habilitar la funcionalidad de arrastre para los cuadros
+    const habilitarArrastre = (elemento) => {
         let isDragging = false;
         let offsetX, offsetY;
 
-        meta.addEventListener('mousedown', function (e) {
+        elemento.addEventListener('mousedown', (e) => {
             isDragging = true;
             offsetX = e.offsetX;
             offsetY = e.offsetY;
-            meta.style.cursor = 'grabbing';
-            meta.style.position = 'absolute'; // Asegura que sea posible mover la meta
+            elemento.style.cursor = 'grabbing';
         });
 
-        document.addEventListener('mousemove', function (e) {
+        document.addEventListener('mousemove', (e) => {
             if (isDragging) {
-                meta.style.left = (e.pageX - offsetX) + 'px';
-                meta.style.top = (e.pageY - offsetY) + 'px';
+                elemento.style.left = (e.pageX - offsetX) + 'px';
+                elemento.style.top = (e.pageY - offsetY) + 'px';
+
+                // Verificar si el cuadro está sobre el botón de eliminar
+                const eliminarPos = btnEliminar.getBoundingClientRect();
+                const cuadroPos = elemento.getBoundingClientRect();
+
+                // Si se mueve sobre el botón "Eliminar", elimina el cuadro
+                if (
+                    cuadroPos.top < eliminarPos.bottom &&
+                    cuadroPos.bottom > eliminarPos.top &&
+                    cuadroPos.left < eliminarPos.right &&
+                    cuadroPos.right > eliminarPos.left
+                ) {
+                    elemento.remove(); // Elimina el cuadro
+                }
             }
         });
 
-        document.addEventListener('mouseup', function () {
+        document.addEventListener('mouseup', () => {
             isDragging = false;
-            meta.style.cursor = 'grab';
+            elemento.style.cursor = 'grab';
         });
-    }
-
-
-    // Habilitar el arrastre para todas las metas existentes
-    const metas = document.querySelectorAll('.meta');
-    metas.forEach(meta => habilitarArrastrar(meta));
-
-    // Habilitar el desplazamiento del mapa completo con el mouse
-    let mapaConceptual = document.getElementById('mapa-conceptual');
-    let isMapDragging = false;
-    let startX, startY, scrollLeft, scrollTop;
-
-    mapaConceptual.addEventListener('mousedown', (e) => {
-        isMapDragging = true;
-        mapaConceptual.style.cursor = 'grabbing';
-        startX = e.pageX - mapaConceptual.offsetLeft;
-        startY = e.pageY - mapaConceptual.offsetTop;
-        scrollLeft = mapaConceptual.scrollLeft;
-        scrollTop = mapaConceptual.scrollTop;
-    });
-
-    mapaConceptual.addEventListener('mouseup', () => {
-        isMapDragging = false;
-        mapaConceptual.style.cursor = 'grab';
-    });
-
-    mapaConceptual.addEventListener('mousemove', (e) => {
-        if (!isMapDragging) return;
-        e.preventDefault();
-        const x = e.pageX - mapaConceptual.offsetLeft;
-        const y = e.pageY - mapaConceptual.offsetTop;
-        const walkX = (x - startX) * 2;
-        const walkY = (y - startY) * 2;
-        mapaConceptual.scrollLeft = scrollLeft - walkX;
-        mapaConceptual.scrollTop = scrollTop - walkY;
-    });
+    };
+});

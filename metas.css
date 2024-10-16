@@ -1,81 +1,114 @@
-/* Asegurar que el cuerpo de la página ocupe todo el espacio disponible */
+/* General */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Evita que la página en sí tenga barras de desplazamiento */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
-/* El contenedor principal del mapa ocupará todo el espacio de la página */
-#mapa-conceptual {
-    width: 100%;  /* Lo haces dos veces más ancho que la pantalla */
-    height: 100%; /* Lo haces dos veces más alto que la pantalla */
-    position: relative;
-    overflow: auto; /* Permite desplazarse por todo el contenido */
-    background-color: #472323; /* Puedes poner otro color si quieres */
+/* Barra superior */
+#barra-superior {
+    width: 100%;
+    height: 140px;
+    background-color: #333;
+    color: white;
     display: flex;
-    justify-content: center;
     align-items: center;
-    cursor: grab; /* Cursor de "agarrar" */
-}
-
-/* Meta principal */
-.meta-principal {
-    text-align: center;
-    padding: 20px;
-    border: 2px solid #000;
-    border-radius: 10px;
-    background-color: #f0f0f0;
-    width: 300px;
-    font-size: 18px;
+    padding-left: 20px;
     position: relative;
 }
 
-/* Sub-metas, más pequeñas */
-.sub-metas {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 30px;
-}
-
-.meta {
-    position: absolute;
-    bottom: 0; /* Aparece en la parte inferior */
-    left: 10px; /* Puedes ajustar esta distancia si prefieres */
-    padding: 10px;
-    border: 2px solid #007BFF;
-    border-radius: 8px;
-    background-color: #E6F2FF;
-    font-size: 14px;
-    cursor: pointer;
-    cursor: grab;
-    position: absolute; /* Para poder mover los elementos dentro del mapa */
-}
-
-.meta:hover {
-    background-color: #CCE5FF;
-    transition: background-color 0.3s;
-}
-
-#agregar-meta {
-    margin-top: 30px;
-    text-align: center;
-}
-
-button {
-    margin-left: 10px;
-    padding: 5px 10px;
+#barra-superior button {
     background-color: #007BFF;
     color: white;
     border: none;
-    border-radius: 5px;
+    padding: 10px 15px;
+    margin-right: 20px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
-button:hover {
+#barra-superior button:hover {
     background-color: #0056b3;
+}
+
+/* Menú desplegable para la opción Insertar */
+.menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+}
+
+.menu button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.menu button:hover {
+    background-color: #0056b3;
+}
+
+/* Contenedor del mapa conceptual */
+#mapa-conceptual {
+    width: 100%;
+    height: calc(100% - 50px); /* El resto de la pantalla, bajo la barra superior */
+    position: relative;
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+/* Botón Eliminar dentro del mapa conceptual */
+#btn-eliminar {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#btn-eliminar:hover {
+    background-color: darkred;
+}
+
+/* Cuadro creado */
+.cuadro {
+    width: 150px;
+    height: 100px;
+    border: 2px solid #007BFF;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    resize: both;
+    overflow: auto;
+}
+
+/* Edición de texto directo */
+.cuadro[contenteditable="true"] {
+    outline: none;
+    cursor: text;
+    padding: 10px;
 }

@@ -7,31 +7,18 @@
     <link rel="stylesheet" href="metas.css">
 </head>
 <body>
-    <div id="mapa-conceptual">
-        <div class="meta-principal">
-            <span id="metaPrincipalTexto">Meta Principal</span>
-            <button onclick="editarMetaPrincipal()">Editar</button>
-            <div class="sub-metas" id="sub-metas">
-                <div class="meta">
-                    <span>Meta 1</span>
-                    <button onclick="editarMeta(this)">Editar</button>
-                </div>
-                <div class="meta">
-                    <span>Meta 2</span>
-                    <button onclick="editarMeta(this)">Editar</button>
-                </div>
-                <div class="meta">
-                    <span>Meta 3</span>
-                    <button onclick="editarMeta(this)">Editar</button>
-                </div>
-            </div>
+    <!-- Barra superior con la opción Insertar -->
+    <div id="barra-superior">
+        <button id="btn-insertar">Insertar</button>
+        <div id="menu-insertar" class="menu">
+            <button id="insertar-cuadro">Cuadro</button>
         </div>
     </div>
 
-    <div id="agregar-meta">
-        <h3>Agregar nueva meta</h3>
-        <input type="text" id="nuevaMetaInput" placeholder="Nueva meta">
-        <button onclick="agregarMeta()">Agregar Meta</button>
+    <!-- Contenedor para el mapa conceptual -->
+    <div id="mapa-conceptual">
+        <!-- Botón Eliminar dentro del mapa conceptual -->
+        <button id="btn-eliminar">Eliminar</button>
     </div>
 
     <script src="metas.js"></script>
