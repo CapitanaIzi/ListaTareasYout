@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#mapa-conceptual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.meta-principal {
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    width: 200px;
+}
+
+.sub-metas {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.meta {
+    padding: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    background-color: #E6F2FF;
+    cursor: pointer;
+}
+
+.meta:hover {
+    background-color: #CCE5FF;
+    transition: background-color 0.3s;
+}
