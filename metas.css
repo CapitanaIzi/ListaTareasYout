@@ -11,7 +11,7 @@ body, html {
 /* Barra superior */
 #barra-superior {
     width: 100%;
-    height: 50px;
+    height: 60px;
     background-color: #333;
     color: white;
     display: flex;
@@ -20,7 +20,7 @@ body, html {
     position: relative;
 }
 
-/* Botón Insertar */
+/* Botones en la barra superior */
 #barra-superior button {
     background-color: #007BFF;
     color: white;
@@ -35,7 +35,7 @@ body, html {
     background-color: #0056b3;
 }
 
-/* Menú desplegable para la opción Insertar */
+/* Menú desplegable */
 .menu {
     display: none;
     position: absolute;
@@ -67,8 +67,32 @@ body, html {
     width: 100%;
     height: calc(100% - 50px); /* El resto de la pantalla, bajo la barra superior */
     position: relative;
-    background-color: #f9f9f9;
+    background-color: #030303;
     overflow: hidden;
+}
+/* Estilos para el título editable */
+/* Estilos para el título editable alineado con la barra superior */
+#titulo-editable {
+    position: absolute;
+    top: 0; /* Alinear en la parte superior */
+    left: 50%;
+    transform: translateX(-50%); /* Centrar horizontalmente */
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-width: 200px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-top: 10px; /* Espacio entre la barra superior y el título */
+}
+
+/* Placeholder usando pseudo-elemento CSS */
+#titulo-editable:empty:before {
+    content: attr(data-placeholder);
+    color: #888;
 }
 
 /* Botón Eliminar dentro del mapa conceptual */
@@ -93,7 +117,7 @@ body, html {
     min-width: 150px; /* Ancho mínimo */
     padding: 10px;
     border: 2px solid #007BFF;
-    background-color: white;
+    background-color: #FFFFFF; /* Cambia a blanco */
     border-radius: 5px;
     position: absolute;
     top: 50%;
@@ -101,6 +125,7 @@ body, html {
     transform: translate(-50%, -50%);
     cursor: grab;
 }
+
 
 /* Edición de texto directo */
 .cuadro[contenteditable="true"] {
@@ -141,3 +166,17 @@ body, html {
     cursor: nwse-resize; /* Cambiar el cursor para redimensionar */
 }
 
+/* Menú de color */
+.color-option {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #000;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.color-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

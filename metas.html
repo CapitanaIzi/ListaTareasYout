@@ -9,15 +9,30 @@
 <body>
     <!-- Barra superior con la opción Insertar -->
     <div id="barra-superior">
+        <button id="btn-guardar">Guardar</button>
         <button id="btn-insertar">Insertar</button>
-        <div id="menu-insertar" class="menu">
+        <div class="menu" id="menu-insertar">
             <button id="insertar-cuadro">Cuadro</button>
             <button id="insertar-flecha">Flecha</button>
+        </div>
+        <button id="btn-editar">Editar</button>
+        <div class="menu" id="menu-editar">
+            <button id="btn-color">Color</button>
+            <div class="menu" id="menu-color">
+                <div class="color-grid">
+                    <button class="color-option" data-color="#FFB6C1" style="background-color: #FFB6C1;">Rosa</button>
+                    <button class="color-option" data-color="#90EE90" style="background-color: #90EE90;">Verde Claro</button>
+                    <button class="color-option" data-color="#FFFFE0" style="background-color: #ebeb1e;">Amarillo</button>
+                    <button class="color-option" data-color="#ADD8E6" style="background-color: #ADD8E6;">Celeste</button>
+                    <button class="color-option" data-color="#E6E6FA" style="background-color: #9f9fe4;">Violeta Claro</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Contenedor para el mapa conceptual -->
-    <div id="mapa-conceptual">
+    <div id="mapa-conceptual"><!-- Título editable en el centro del mapa conceptual -->
+        <div id="titulo-editable" contenteditable="true" data-placeholder="Ingrese título"></div>        
         <!-- Botón Eliminar dentro del mapa conceptual -->
         <button id="btn-eliminar">Eliminar</button>
     </div>

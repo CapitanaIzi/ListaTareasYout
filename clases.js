@@ -112,7 +112,8 @@ class Flecha {
         let initialMouseX = 0;
         let initialMouseY = 0;
         let initialWidth = 0;
-
+        let initialHeight = 0;
+    
         control.addEventListener('mousedown', (e) => {
             isResizing = true;
             e.stopPropagation();
@@ -120,31 +121,52 @@ class Flecha {
             initialMouseX = e.clientX;
             initialMouseY = e.clientY;
             initialWidth = rect.width;
+            initialHeight = rect.height;
         });
-
+    
         document.addEventListener('mousemove', (e) => {
             if (isResizing) {
                 const transform = window.getComputedStyle(this.element).transform;
                 let angle = 0;
+    
+                // Obtener el ángulo de rotación si hay una transformación
                 if (transform !== 'none') {
                     const values = transform.split('(')[1].split(')')[0].split(',');
                     const a = values[0];
                     const b = values[1];
-                    angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+                    angle = Math.atan2(b, a); // Ángulo en radianes
                 }
-
+    
                 const mouseDiffX = e.clientX - initialMouseX;
-                const deltaX = Math.cos(angle * (Math.PI / 180)) * mouseDiffX;
-
-                let newWidth = initialWidth + deltaX;
+                const mouseDiffY = e.clientY - initialMouseY;
+    
+                // Ajustar el cálculo en función de la rotación
+                let deltaX = Math.cos(angle) * mouseDiffX + Math.sin(angle) * mouseDiffY;
+                let deltaY = Math.sin(angle) * mouseDiffX - Math.cos(angle) * mouseDiffY;
+    
+                // Determinar si el ajuste se hace en el ancho o alto según la orientación
+                let newWidth = initialWidth;
+                let newHeight = initialHeight;
+    
+                if (Math.abs(angle) < Math.PI / 4 || Math.abs(angle) > (3 * Math.PI) / 4) {
+                    // Flecha más horizontal
+                    newWidth = initialWidth + deltaX;
+                } else {
+                    // Flecha más vertical
+                    newWidth = initialHeight + deltaY;
+                }
+    
+                // Asegurar que el nuevo tamaño sea coherente (evitar valores negativos)
                 if (newWidth > 20) {
-                    this.element.style.width = newWidth + 'px';
+                    this.element.style.width = Math.abs(newWidth) + 'px';
                 }
             }
         });
-
+    
         document.addEventListener('mouseup', () => {
             isResizing = false;
         });
     }
-}
+    
+    }
+
