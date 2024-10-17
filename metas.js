@@ -174,21 +174,21 @@ document.addEventListener('DOMContentLoaded', function () {
     function habilitarRotacion(control, flecha) {
         let isRotating = false;
         let lastAngle = 0;
-    
+
         control.addEventListener('mousedown', (e) => {
             isRotating = true;
             e.stopPropagation(); // Evitar que se inicie el arrastre
         });
-    
+
         document.addEventListener('mousemove', (e) => {
             if (isRotating) {
                 const rect = flecha.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
-    
+
                 const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI);
                 const angleDiff = angle - lastAngle;
-    
+
                 // Suavizar el giro limitando el rango de movimiento
                 if (Math.abs(angleDiff) > 1) {
                     flecha.style.transform = `rotate(${angle}deg)`;
@@ -196,29 +196,53 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         });
-    
+
         document.addEventListener('mouseup', () => {
             isRotating = false;
             guardarEstado(); // Guardar el estado después de rotar
         });
     };
-    
+
     // Habilitar la funcionalidad de tamaño para la flecha
-    function habilitarTamano (control, flecha) {
+    function habilitarTamano(control, flecha) {
         let isResizing = false;
+        let initialMouseX = 0;
+        let initialMouseY = 0;
+        let initialWidth = 0;
+        let initialHeight = 0;
     
         control.addEventListener('mousedown', (e) => {
             isResizing = true;
             e.stopPropagation(); // Evitar que se inicie el arrastre
+            const rect = flecha.getBoundingClientRect();
+            initialMouseX = e.clientX;
+            initialMouseY = e.clientY;
+            initialWidth = rect.width;
+            initialHeight = rect.height;
         });
     
         document.addEventListener('mousemove', (e) => {
             if (isResizing) {
-                const rect = flecha.getBoundingClientRect();
-                const newWidth = e.clientX - rect.left; // Ajustar el ancho
+                // Obtener el ángulo de rotación actual de la flecha
+                const transform = window.getComputedStyle(flecha).transform;
+                let angle = 0;
+                if (transform !== 'none') {
+                    const values = transform.split('(')[1].split(')')[0].split(',');
+                    const a = values[0];
+                    const b = values[1];
+                    angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+                }
     
-                // Ajustar el ancho sin aumentar la altura
-                if (newWidth > 20) { // Mantener un ancho mínimo
+                // Diferencias de movimiento del mouse
+                const mouseDiffX = e.clientX - initialMouseX;
+                const mouseDiffY = e.clientY - initialMouseY;
+    
+                // Calcular el cambio en el tamaño en función del ángulo de rotación
+                const deltaX = Math.cos(angle * (Math.PI / 180)) * mouseDiffX + Math.sin(angle * (Math.PI / 180)) * mouseDiffY;
+                let newWidth = initialWidth + deltaX;
+    
+                // Ajustar el ancho sin aumentar la altura y permitir redimensionar en cualquier ángulo
+                if (newWidth > 20) { // Mantener un tamaño mínimo
                     flecha.style.width = newWidth + 'px';
                 }
             }
@@ -230,6 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
     
+
 
 });
 
