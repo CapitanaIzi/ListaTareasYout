@@ -72,7 +72,7 @@ body, html {
 }
 /* Estilos para el título editable */
 /* Estilos para el título editable alineado con la barra superior */
-#titulo-editable {
+#titulo {
     position: absolute;
     top: 0; /* Alinear en la parte superior */
     left: 50%;
@@ -90,7 +90,7 @@ body, html {
 }
 
 /* Placeholder usando pseudo-elemento CSS */
-#titulo-editable:empty:before {
+#titulo:empty:before {
     content: attr(data-placeholder);
     color: #888;
 }
