@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnColor = document.getElementById('btn-color');
     const menuColor = document.getElementById('menu-color');
     const eliminarBtn = document.getElementById('btn-eliminar');
+
+    const btnGuardar = document.getElementById('btn-guardar');
     // Cargar elementos guardados al iniciar
     cargarElementos();
-    const btnGuardar = document.getElementById('btn-guardar');
-
     // Evento para guardar cambios
     btnGuardar.addEventListener('click', () => {
         guardarEstado(); // Llama a la función para guardar el estado
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Guarda el estado después de eliminar
             }
         });
-       
+
     });
     let cuadroActivo = null;  // Variable para almacenar el cuadro activo
     // Mostrar el menú al hacer clic en Insertar
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('insertar-cuadro').addEventListener('click', () => {
         const nuevoCuadro = new Cuadro();
         cuadroActivo = nuevoCuadro.element;  // Establecer el cuadro recién creado como activo
-        
+
     });
 
     // Mostrar el menú al hacer clic en Editar
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const color = e.target.getAttribute('data-color');
             if (cuadroActivo) {
                 cuadroActivo.style.backgroundColor = color;  // Cambiar el color de fondo del cuadro activo
-               
+
             }
         });
     });
@@ -83,6 +83,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Crear una flecha al hacer clic en el botón de insertar
     document.getElementById('insertar-flecha').addEventListener('click', () => {
         new Flecha();
-        
+
     });
+    const tituloElemento = document.getElementById('titulo');
+    const placeholder = document.getElementById('titulo-placeholder');
+
+    tituloElemento.addEventListener('focus', () => {
+        placeholder.style.display = 'none'; // Ocultar el placeholder cuando el div tiene foco
+    });
+
+    tituloElemento.addEventListener('blur', () => {
+        if (tituloElemento.innerText.trim() === '') {
+            placeholder.style.display = 'block'; // Mostrar el placeholder si está vacío
+        }
+    });
+
+    // Inicialmente mostrar el placeholder si el div está vacío
+    if (tituloElemento.innerText.trim() === '') {
+        placeholder.style.display = 'block';
+    } else {
+        placeholder.style.display = 'none';
+    }
+
 });
