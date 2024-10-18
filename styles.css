@@ -1,92 +1,122 @@
+/*.contenedor {
+    
+    margin: 0; 
+    padding: 0; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    background-color: #030303;
+    overflow: hidden;
+
+    display: flex; 
+    
+    align-items: center; 
+} */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rgb(237, 237, 237);
+    background-color: rgb(77, 74, 74);
 }
 
-.container {
+.contenedor {
+    width: 100%; /* 100% del ancho de la ventana */
+    height: 100%; /* 100% de la altura de la ventana */
     max-width: 400px;
     margin: 100px auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: white;
+    position: relative;
+    background-color: rgb(10, 10, 10);
+   
 }
 
 h1 {
     text-align: center;
     color: #555;
 }
-#listContainer, #inputContainer {
+
+#contenedorDeListas, #contenedorDeEntrada {
     margin-bottom: 10px;
 }
 
-input [type="text"] {
+input[type="text"] {
     width: 80%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #af1818;
     border-radius: 5px;
     box-sizing: border-box;
     margin-bottom: 10px;
-
 }
-#inputContainer {
+
+#contenedorDeEntrada {
     position: sticky;
     top: 0;
-    background-color: white;
+    background-color: rgb(94, 93, 93);
     padding: 10px;
     z-index: 1000;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #3b2f2f;
 }
-#listInput, #taskInput {
+
+#entradaLista, #entradaTarea {
     width: 60%;
     padding: 10px;
     margin-right: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #928b8b;
     border-radius: 4px;
 }
-button{
-    background-color: #007bff;
+
+button {
+    background-color: #037a7e;
     width: 60px;
-    color: white;
+    color: rgb(243, 235, 235);
     border: none;
     padding: 12px 15px;
     margin-left: 5px;
     border-radius: 5px;
     cursor: pointer;
 }
-button:hover{
-    background-color: #0056b3;
+
+button:hover {
+    background-color: #13b4ac;
 }
-button.edit-button{
-    background-color: #007bff;
+
+button.boton-editar {
+    background-color: #62a5ec;
 }
-button.edit-button:hover{
-    background-color: #0056b3;
-}button.delete-button{
+
+button.boton-editar:hover {
+    background-color: #48ebf7;
+}
+
+button.boton-eliminar {
     background-color: #ff333f;
     width: 70px;
-}button.delete-button:hover{
-    background-color: #0056b3;
 }
-ul{
-   
+
+button.boton-eliminar:hover {
+    background-color: #f74f01;
+}
+
+ul {
     list-style-type: none;
     padding: 0;
 }
-li{
+
+li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 10px;
-    border-bottom: 1px solid #ccc;
-}
-li:last-child{
-    border-bottom: none;
+    border-bottom: 1px solid #0e67eb;
 }
 
+li:last-child {
+    border-bottom: none;
+}
 .completed {
     text-decoration: line-through;
     color: rgb(119, 121, 118);

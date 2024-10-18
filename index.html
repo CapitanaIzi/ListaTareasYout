@@ -2,34 +2,33 @@
 <html>
 
 <head>
-
-    <title> Aplicación de Lista de Tareas</title>
+    <title>Aplicación de Lista de Tareas</title>
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 
 <body>
-    <div class="container">
-        <h1> Aplicación de Lista de Tareas </h1>
+    <div class="contenedor">
+        <h1>Aplicación de Lista de Tareas</h1>
 
-        <div id="listContainer">
-            <input type="text" id="listInput" placeholder="Nombre de nueva lista" />
+        <div id="contenedorDeListas">
+            <input type="text" id="entradaLista" placeholder="Nombre de nueva lista" />
             <button id="addListButton">Agregar nueva lista</button>
         </div>
-        <div id="inputContainer">
+        <div id="contenedorDeEntrada">
             <label for="listSelector">Selecciona una lista:</label>
             <select id="listSelector"></select>
-            <input type="text" id="taskInput" placeholder="Ingresa una nueva tarea" />
+            <input type="text" id="entradaTarea" placeholder="Ingresa una nueva tarea" />
             <button id="addButton">Agregar</button>
         </div>
-        <div id="listActions">
+        <div id="accionesDeLista">
             <button id="editListButton">Editar lista</button>
             <button id="deleteListButton">Eliminar lista</button>
         </div>
-            <ul id="taskList"></ul>
+        <ul id="taskList"></ul>
     </div>
-    <script type="text/javascript" src="todolist.js"></script>
+    <script type="text/javascript" src="ListaDeTareas.js"></script>
     <script type="text/javascript" src="script.js"></script>
-
+    <a href="metas.html" style="color: red;">Cuadro Conceptual </a>
 </body>
 
 </html>
