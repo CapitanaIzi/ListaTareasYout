@@ -1,0 +1,182 @@
+/* General */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Barra superior */
+#barra-superior {
+    width: 100%;
+    height: 60px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    position: relative;
+}
+
+/* Botones en la barra superior */
+#barra-superior button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-right: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#barra-superior button:hover {
+    background-color: #0056b3;
+}
+
+/* Menú desplegable */
+.menu {
+    display: none;
+    position: absolute;
+    top: 50px; /* Abajo del botón */
+    left: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    z-index: 100; /* Asegurarse que esté por encima de otros elementos */
+}
+
+.menu button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.menu button:hover {
+    background-color: #0056b3;
+}
+
+/* Contenedor del mapa conceptual */
+#mapa-conceptual {
+    width: 100%; /* 100% del ancho de la ventana */
+    height: 100%;
+    position: relative;
+    background-color: #030303;
+    overflow: hidden;
+}
+/* Estilos para el título editable */
+/* Estilos para el título editable alineado con la barra superior */
+#titulo {
+    position: absolute;
+    top: 0; /* Alinear en la parte superior */
+    left: 50%;
+    transform: translateX(-50%); /* Centrar horizontalmente */
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-width: 200px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-top: 10px; /* Espacio entre la barra superior y el título */
+}
+
+/* Placeholder usando pseudo-elemento CSS */
+#titulo:empty:before {
+    content: attr(data-placeholder);
+    color: #888;
+}
+
+/* Botón Eliminar dentro del mapa conceptual */
+#btn-eliminar {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#btn-eliminar:hover {
+    background-color: darkred;
+}
+
+/* Cuadro creado */
+.cuadro {
+    min-width: 150px; /* Ancho mínimo */
+    padding: 10px;
+    border: 2px solid #007BFF;
+    background-color: #FFFFFF; /* Cambia a blanco */
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+}
+
+
+/* Edición de texto directo */
+.cuadro[contenteditable="true"] {
+    outline: none;
+    cursor: text;
+}
+
+/* Estilo para la flecha (sin cabezal) */
+.flecha {
+    position: absolute;
+    width: 200px; /* Longitud de la línea de la flecha */
+    height: 2px; /* Grosor de la línea */
+    background-color: #007BFF; /* Color de la línea */
+    cursor: grab;
+    transform-origin: left; /* El punto de rotación está en la izquierda */
+}
+
+.control-rotacion {
+    position: absolute;
+    top: 50%;
+    left: -10px; /* Colocar el control de rotación a la izquierda */
+    width: 10px;
+    height: 10px;
+    background-color: blue; /* Color del control de rotación */
+    border-radius: 50%;
+    cursor: url('images/rotate-cursor.png'), auto; /* Cambiar el cursor si es necesario */
+    transform: translateY(-50%); /* Centrar verticalmente el control */
+}
+
+.control-tamano {
+    position: absolute;
+    top: 50%;
+    left: 100%; /* Mantener el control de tamaño a la derecha */
+    width: 10px;
+    height: 10px;
+    background-color: green; /* Color del control de tamaño */
+    border-radius: 50%;
+    cursor: nwse-resize; /* Cambiar el cursor para redimensionar */
+}
+
+/* Menú de color */
+.color-option {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #000;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.color-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

@@ -139,6 +139,7 @@ class ListaDeTareas {
     crearTextoTarea(tarea) {
         const textoTarea = document.createElement("span");
         textoTarea.textContent = tarea.texto;
+        textoTarea.style.color = "white"; 
         return textoTarea;
     }
     

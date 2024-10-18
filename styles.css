@@ -1,17 +1,36 @@
+/*.contenedor {
+    
+    margin: 0; 
+    padding: 0; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    background-color: #030303;
+    overflow: hidden;
+
+    display: flex; 
+    
+    align-items: center; 
+} */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: rgb(237, 237, 237);
+    background-color: rgb(77, 74, 74);
 }
 
 .contenedor {
+    width: 100%; /* 100% del ancho de la ventana */
+    height: 100%; /* 100% de la altura de la ventana */
     max-width: 400px;
     margin: 100px auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: white;
+    position: relative;
+    background-color: rgb(10, 10, 10);
+   
 }
 
 h1 {
@@ -27,7 +46,7 @@ input[type="text"] {
     width: 80%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
+    border: 1px solid #af1818;
     border-radius: 5px;
     box-sizing: border-box;
     margin-bottom: 10px;
@@ -36,24 +55,24 @@ input[type="text"] {
 #contenedorDeEntrada {
     position: sticky;
     top: 0;
-    background-color: white;
+    background-color: rgb(94, 93, 93);
     padding: 10px;
     z-index: 1000;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #3b2f2f;
 }
 
 #entradaLista, #entradaTarea {
     width: 60%;
     padding: 10px;
     margin-right: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #928b8b;
     border-radius: 4px;
 }
 
 button {
     background-color: #037a7e;
     width: 60px;
-    color: white;
+    color: rgb(243, 235, 235);
     border: none;
     padding: 12px 15px;
     margin-left: 5px;
@@ -92,7 +111,7 @@ li {
     justify-content: space-between;
     align-items: center;
     padding: 12px 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #0e67eb;
 }
 
 li:last-child {
