@@ -1,16 +1,23 @@
 CREATE DATABASE mi_aplicacion;
 USE mi_aplicacion;
+CREATE TABLE listas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL
+);
 
 CREATE TABLE tareas (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  usuario_id INT, 
-  titulo VARCHAR(255),
-  descripcion TEXT,
-  completada BOOLEAN DEFAULT FALSE,
-  fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT,              
+    lista_id INT,                 
+    titulo VARCHAR(255),
+    descripcion TEXT,
+    completada BOOLEAN DEFAULT FALSE,
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (lista_id) REFERENCES listas(id) ON DELETE CASCADE 
 );
----- ID del usuario al que pertenecen las tareas
 
+---- ID del usuario al que pertenecen las tareas
+-- Asegúrate de tener la tabla listas
 CREATE TABLE mapas_conceptuales (
   id INT AUTO_INCREMENT PRIMARY KEY,
   usuario_id INT,
@@ -29,6 +36,10 @@ CREATE TABLE usuarios (
   fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE tareas
+ADD lista_id INT,
+ADD CONSTRAINT fk_lista
+FOREIGN KEY (lista_id) REFERENCES listas(id) ON DELETE CASCADE;
 
 
 INSERT INTO tareas (usuario_id, titulo, descripcion)
