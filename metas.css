@@ -89,10 +89,12 @@ body, html {
     margin-top: 10px; /* Espacio entre la barra superior y el título */
 }
 
-/* Placeholder usando pseudo-elemento CSS */
-#titulo:empty:before {
-    content: attr(data-placeholder);
-    color: #888;
+#titulo-placeholder {
+    position: absolute;
+    top: 25px; /* Alinear en la parte superior */
+    left: 47%;
+    color: #8d8a8a;
+    pointer-events: none; /* Para evitar que se pueda seleccionar */
 }
 
 /* Botón Eliminar dentro del mapa conceptual */
